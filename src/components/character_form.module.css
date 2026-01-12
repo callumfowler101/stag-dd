@@ -1,0 +1,15 @@
+.container {
+  border: 2px solid white;
+  padding: 5%;
+  width: 50dvw;
+  height: 20dvh;
+  margin-top: 2%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.submit_btn {
+  font-size: 1rem;
+}

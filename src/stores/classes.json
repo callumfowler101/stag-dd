@@ -1,0 +1,38 @@
+{
+  "elf": {
+    "classname": "elf",
+    "info": "Lorem Elf",
+    "luck": 0,
+    "wisdom": 0,
+    "agility": 0,
+    "speed": 0,
+    "fishing": 0
+  },
+  "dwarf": {
+    "classname": "dwarf",
+    "info": "Lorem Dwarf",
+    "luck": 0,
+    "wisdom": 0,
+    "agility": 0,
+    "speed": 0,
+    "fishing": 0
+  },
+  "fisherman": {
+    "classname": "fisherman",
+    "info": "Lorem Fisherman",
+    "luck": 0,
+    "wisdom": 0,
+    "agility": 0,
+    "speed": 0,
+    "fishing": 0
+  },
+  "dungeon_master": {
+    "classname": "dungeon_master",
+    "info": "Lorem DMs",
+    "luck": 0,
+    "wisdom": 0,
+    "agility": 0,
+    "speed": 0,
+    "fishing": 0
+  }
+}
