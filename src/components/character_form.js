@@ -1,6 +1,7 @@
 'use client'
 
 import { redirect, RedirectType } from 'next/navigation'
+import { pushEntry } from '../scripts/tempDb.js'
 
 import classes from '../stores/classes'
 import styles from './character_form.module.css'
@@ -16,7 +17,16 @@ export default function CharacterForm() {
 
     const fullName = `${name} ${title}`
     console.log(`${fullName} is a ${classType}`)
-    redirect('/pages/character_page')
+
+    const uuid = Math.floor(Math.random() * 1000000)
+
+    const heroSchema = classes[classType]
+    heroSchema.name = fullName
+    heroSchema.uuid = uuid
+
+    pushEntry(uuid, heroSchema)
+
+    redirect(`/pages/${uuid}`)
   }
 
   return (
