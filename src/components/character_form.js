@@ -1,5 +1,7 @@
 'use client'
 
+import { redirect, RedirectType } from 'next/navigation'
+
 import classes from '../stores/classes'
 import styles from './character_form.module.css'
 
@@ -14,6 +16,7 @@ export default function CharacterForm() {
 
     const fullName = `${name} ${title}`
     console.log(`${fullName} is a ${classType}`)
+    redirect('/pages/character_page')
   }
 
   return (
