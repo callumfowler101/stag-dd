@@ -1,7 +1,9 @@
 'use client'
-
 import { redirect, RedirectType } from 'next/navigation'
 import { pushEntry } from '../scripts/tempDb.js'
+// import { initCharacterToDb } from '../scripts/database.js'
+
+import { submitCharacter } from '../server_actions/submitCharacter.js'
 
 import classes from '../stores/classes'
 import styles from './character_form.module.css'
@@ -24,9 +26,13 @@ export default function CharacterForm() {
     heroSchema.name = fullName
     heroSchema.uuid = uuid
 
-    pushEntry(uuid, heroSchema)
+    // pushEntry(uuid, heroSchema)
 
-    redirect(`/pages/${uuid}`)
+    // initCharacterToDb(heroSchema, uuid)
+    console.log('hero init')
+    submitCharacter(heroSchema, uuid)
+
+    redirect(`/pages/${uuid}?uuid=${uuid}`)
   }
 
   return (

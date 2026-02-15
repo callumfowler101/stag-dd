@@ -7,7 +7,8 @@
       "wisdom": 6,
       "agility": 3,
       "speed": 2,
-      "fishing": 1
+      "fishing": 1,
+      "experience": 0
     }
   },
   "dwarf": {
@@ -18,7 +19,8 @@
       "wisdom": 2,
       "agility": 4,
       "speed": 6,
-      "fishing": 7
+      "fishing": 7,
+      "experience": 0
     }
   },
   "fisherman": {
@@ -29,7 +31,8 @@
       "wisdom": 1,
       "agility": 2,
       "speed": 3,
-      "fishing": 10
+      "fishing": 10,
+      "experience": 0
     }
   },
   "dungeon_master": {
@@ -40,7 +43,8 @@
       "wisdom": 10,
       "agility": 10,
       "speed": 10,
-      "fishing": 10
+      "fishing": 10,
+      "experience": 0
     }
   }
 }

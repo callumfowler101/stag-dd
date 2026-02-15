@@ -5,9 +5,14 @@ import InfoCard from '../components/info_card.js'
 import PickClass from '../components/pick_class.js'
 import CharacterForm from '../components/character_form.js'
 
+import { initDB } from '../scripts/database.js'
+
 const dataIsInitialised = false
 
 export default function Home() {
+  initDB()
+  console.log('bang')
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
