@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.container * {
+  width: 50%;
+}
+
+.sub_container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.cell {
+  width: auto;
+  aspect-ratio: 1/1;
+  border: solid white 2px;
+  border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 5px;
+}
+
+.cell * {
+  width: 100%;
+}
+
+.cell button {
+  border: solid white 1px;
+  background: grey;
+  color: black;
+}
