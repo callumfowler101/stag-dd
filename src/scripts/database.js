@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Hero = require('../mongoose_models/hero.js')
 
-console.log(Hero)
+// console.log(Hero)
 
 const uri = process.env.DATABASE_URI
 
@@ -34,9 +34,23 @@ const addDataToDb = () => {}
 const getCharacterFromDb = (uuid) => {
   return new Promise(async (res, rej) => {
     console.log(uuid)
-    const data = await Hero.find({ uuid })
+    const data = await Hero.findOne({ uuid })
     res(data)
   })
 }
 
-export { initDB, initCharacterToDb, addDataToDb, getCharacterFromDb }
+const entryExists = (uuid) => {
+  return new Promise(async (res, rej) => {
+    console.log(uuid)
+    const result = await Hero.exists({ uuid })
+    res(result)
+  })
+}
+
+export {
+  initDB,
+  initCharacterToDb,
+  addDataToDb,
+  getCharacterFromDb,
+  entryExists,
+}

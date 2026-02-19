@@ -32,7 +32,7 @@ export default function CharacterForm() {
     console.log('hero init')
     submitCharacter(heroSchema, uuid)
 
-    redirect(`/pages/${uuid}?uuid=${uuid}`)
+    redirect(`/pages/character?uuid=${uuid}`)
   }
 
   return (
