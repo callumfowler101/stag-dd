@@ -47,10 +47,18 @@ const entryExists = (uuid) => {
   })
 }
 
+const getAllCharactersFromDb = () => {
+  return new Promise(async (res, rej) => {
+    const data = await Hero.find({})
+    res(data)
+  })
+}
+
 export {
   initDB,
   initCharacterToDb,
   addDataToDb,
   getCharacterFromDb,
   entryExists,
+  getAllCharactersFromDb,
 }

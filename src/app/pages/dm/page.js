@@ -1,13 +1,13 @@
 import styles from './styles.module.css'
-// import { useState } from 'react'
+import { getAllCharactersFromDb, initDB } from '../../../scripts/database.js'
+import PlayerCell from './components/player_cell.js'
 
-export default function MasterPage() {
+export default async function MasterPage() {
   // const [viewUserStats, setViewUserStats] = useState(false)
   // const [viewEventDetails, setViewEventDetails] = useState(false)
-
-  const giveXP = (playerUUID) => {
-    console.log(`Give ${playerUUID} 5XP`)
-  }
+  initDB()
+  const _players = await getAllCharactersFromDb()
+  const players = JSON.parse(JSON.stringify(_players))
 
   return (
     <>
@@ -16,32 +16,9 @@ export default function MasterPage() {
         <div>
           <h3>Players</h3>
           <ul className={styles.sub_container}>
-            <div className={styles.cell}>
-              <p>P1</p>
-              <button
-                onClick={() => {
-                  giveXP('P1')
-                }}
-              >
-                Give XP
-              </button>
-              <button>View Stats</button>
-            </div>
-            <div className={styles.cell}>
-              <p>P2</p>
-              <button>Give XP</button>
-              <button>View Stats</button>
-            </div>
-            <div className={styles.cell}>
-              <p>P3</p>
-              <button>Give XP</button>
-              <button>View Stats</button>
-            </div>
-            <div className={styles.cell}>
-              <p>P4</p>
-              <button>Give XP</button>
-              <button>View Stats</button>
-            </div>
+            {players.map((e) => {
+              return <PlayerCell key={e.uuid} data={e} />
+            })}
           </ul>
         </div>
         <div>

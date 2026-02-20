@@ -17,23 +17,18 @@ export default async function Home({ searchParams }) {
   initDB()
   console.log('bang')
 
-  const doesEntryExists = (await entryExists(params.uuid)) ? true : false
-
-  if (doesEntryExists) redirect(`/pages/character?uuid=${params.uuid}`)
+  if (params.uuid) {
+    const doesEntryExists = (await entryExists(params.uuid)) ? true : false
+    if (doesEntryExists) redirect(`/pages/character?uuid=${params.uuid}`)
+  }
 
   // console.log(`Entry exists: ${JSON.stringify(doesEntryExists)}`)
 
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        {dataIsInitialised ? (
-          <InfoCard />
-        ) : (
-          <>
-            <PickClass />
-            <CharacterForm />
-          </>
-        )}
+        <PickClass />
+        <CharacterForm />
       </main>
     </div>
   )
