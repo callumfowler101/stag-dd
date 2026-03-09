@@ -40,6 +40,7 @@ const getCharacterFromDb = (uuid) => {
 }
 
 const entryExists = (uuid) => {
+  s
   return new Promise(async (res, rej) => {
     console.log(uuid)
     const result = await Hero.exists({ uuid })
@@ -54,6 +55,19 @@ const getAllCharactersFromDb = () => {
   })
 }
 
+const updateCharacterStat = (uuid, update) => {
+  return new Promise(async (res, rej) => {
+    try {
+      const updatedDoc = await Hero.findOneAndUpdate({ uuid }, update, {})
+
+      console.log(updatedDoc)
+      res(true)
+    } catch {
+      rej(false)
+    }
+  })
+}
+
 export {
   initDB,
   initCharacterToDb,
@@ -61,4 +75,5 @@ export {
   getCharacterFromDb,
   entryExists,
   getAllCharactersFromDb,
+  updateCharacterStat,
 }

@@ -35,10 +35,13 @@ export default function CharacterPage() {
           <h2>{data.name}</h2>
           <h3>Stats</h3>
           <ul>
-            {Object.entries(data.stats).map((data, idx) => {
+            {Object.entries(data).map((data, idx) => {
               console.log(data)
-
-              return <li key={idx}>{`${data[0]}: ${data[1]}`}</li>
+              if (typeof data[1] === 'number' && data[0] !== '__v') {
+                return <li key={idx}>{`${data[0]}: ${data[1]}`}</li>
+              } else {
+                return
+              }
             })}
           </ul>
         </>

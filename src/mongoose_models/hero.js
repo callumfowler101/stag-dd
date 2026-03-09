@@ -6,14 +6,12 @@ const heroSchema = new Schema({
   uuid: String,
   classname: String,
   info: String,
-  stats: {
-    luck: Number,
-    wisdom: Number,
-    agility: Number,
-    speed: Number,
-    fishing: Number,
-    experience: Number,
-  },
+  luck: Number,
+  wisdom: Number,
+  agility: Number,
+  speed: Number,
+  fishing: Number,
+  experience: Number,
 })
 
 console.log('bang')
