@@ -7,7 +7,8 @@ export default function PlayerCell({ data }) {
   const giveXP = ({ uuid, experience }) => {
     console.log('xp click')
     const currXP = experience
-    const newXP = 100 + currXP
+    const xpInc = document.getElementById(`xp-amount-${uuid}`).value
+    const newXP = Number(xpInc) + currXP
 
     const update = { experience: newXP }
 
@@ -19,6 +20,7 @@ export default function PlayerCell({ data }) {
     <>
       <div className={styles.cell}>
         <p>{data.name}</p>
+        <input type="text" id={`xp-amount-${data.uuid}`}></input>
         <button
           onClick={() => {
             console.log(data)
