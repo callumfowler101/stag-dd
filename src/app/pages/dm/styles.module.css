@@ -35,3 +35,8 @@
   background: grey;
   color: black;
 }
+
+.notificationContainer {
+  background: grey;
+  width: 75%;
+}

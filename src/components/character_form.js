@@ -20,7 +20,7 @@ export default function CharacterForm() {
     const fullName = `${name} ${title}`
     console.log(`${fullName} is a ${classType}`)
 
-    const uuid = Math.floor(Math.random() * 1000000)
+    const uuid = Math.floor(Math.random() * 1000000) + 1000000
 
     const heroSchema = classes[classType]
     heroSchema.name = fullName

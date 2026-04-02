@@ -1,6 +1,7 @@
 import styles from './styles.module.css'
 import { getAllCharactersFromDb, initDB } from '../../../scripts/database.js'
 import PlayerCell from './components/player_cell.js'
+import NotificationCentre from './components/notification_centre.js'
 
 export default async function MasterPage() {
   // const [viewUserStats, setViewUserStats] = useState(false)
@@ -28,6 +29,9 @@ export default async function MasterPage() {
             <li>Action</li>
             <li>Action</li>
           </ul>
+        </div>
+        <div>
+          <NotificationCentre />
         </div>
       </div>
     </>

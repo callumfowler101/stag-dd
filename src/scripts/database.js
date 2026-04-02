@@ -1,15 +1,17 @@
 const mongoose = require('mongoose')
 const Hero = require('../mongoose_models/hero.js')
+const Notification = require('../mongoose_models/notification.js')
 
 // console.log(Hero)
 
 const uri = process.env.DATABASE_URI
 
+// Hero
 const initCharacterToDb = async (_heroSchema, _uuid) => {
   const hero = new Hero()
 
   for (const [key, value] of Object.entries(_heroSchema)) {
-    console.log(`${key}: ${value}`)
+    // console.log(`${key}: ${value}`)
     hero[key] = value
   }
 
@@ -40,7 +42,6 @@ const getCharacterFromDb = (uuid) => {
 }
 
 const entryExists = (uuid) => {
-  s
   return new Promise(async (res, rej) => {
     console.log(uuid)
     const result = await Hero.exists({ uuid })
@@ -68,6 +69,48 @@ const updateCharacterStat = (uuid, update) => {
   })
 }
 
+// Notification
+const addNotificationToDb = async (_notificationSchema, _uuid) => {
+  const notification = new Notification()
+  for (const [key, value] of Object.entries(_notificationSchema)) {
+    notification[key] = value
+  }
+
+  console.log(notification)
+  await notification.save()
+  console.log('notification saved')
+}
+
+const markAsRead = (uuid) => {
+  return new Promise(async (res, rej) => {
+    try {
+      const update = await Notification.findOneAndUpdate(
+        { uuid },
+        { read: true },
+        {}
+      )
+      res()
+    } catch (err) {
+      console.log(err)
+      rej()
+    }
+  })
+}
+
+const getAllUnreadNotifications = async () => {
+  return new Promise(async (res, rej) => {
+    const data = await Notification.find({ read: false })
+    res(data)
+  })
+}
+
+const getAllNotifications = async () => {
+  return new Promise(async (res, rej) => {
+    const data = await Notification.find({})
+    res(data)
+  })
+}
+
 export {
   initDB,
   initCharacterToDb,
@@ -76,4 +119,8 @@ export {
   entryExists,
   getAllCharactersFromDb,
   updateCharacterStat,
+  addNotificationToDb,
+  markAsRead,
+  getAllUnreadNotifications,
+  getAllNotifications,
 }
