@@ -1,12 +1,10 @@
 'use client'
 import styles from './character_page.module.css'
 import { getCharacter } from '../../../server_actions/getCharacter.js'
-// import { getEntry } from '../../../scripts/tempDb.js'
-import { usePath } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-export default function CharacterPage() {
+function CharacterContent() {
   const [data, setData] = useState(undefined)
   const searchParams = useSearchParams()
   const uuid = searchParams.get('uuid')
@@ -49,5 +47,13 @@ export default function CharacterPage() {
         <h3>Loading...</h3>
       )}
     </div>
+  )
+}
+
+export default function CharacterPage() {
+  return (
+    <Suspense fallback={<h3>Loading...</h3>}>
+      <CharacterContent />
+    </Suspense>
   )
 }
