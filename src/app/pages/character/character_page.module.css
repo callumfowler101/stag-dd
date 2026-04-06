@@ -6,3 +6,11 @@
   width: 100dvw;
   height: 100dvh;
 }
+
+.notification_hub {
+  position: absolute;
+  background: #282828;
+  opacity: 0.8;
+  width: 100%;
+  height: 25%;
+}
