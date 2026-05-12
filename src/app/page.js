@@ -14,13 +14,13 @@ const dataIsInitialised = false
 export default async function Home({ searchParams }) {
   const params = await searchParams
 
-  //   initDB()
-  //   console.log('bang')
-  //
-  //   if (params.uuid) {
-  //     const doesEntryExists = (await entryExists(params.uuid)) ? true : false
-  //     if (doesEntryExists) redirect(`/pages/character?uuid=${params.uuid}`)
-  //   }
+  initDB()
+  console.log('bang')
+
+  if (params.uuid) {
+    const doesEntryExists = (await entryExists(params.uuid)) ? true : false
+    if (doesEntryExists) redirect(`/pages/character?uuid=${params.uuid}`)
+  }
 
   // console.log(`Entry exists: ${JSON.stringify(doesEntryExists)}`)
 

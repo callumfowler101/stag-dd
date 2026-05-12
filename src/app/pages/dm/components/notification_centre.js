@@ -16,6 +16,7 @@ export default function NotificationCentre() {
       type: 'event',
       read: false,
       uuid,
+      userUuid: 0,
     }
 
     console.log(notificationSchema)

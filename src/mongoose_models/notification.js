@@ -7,6 +7,7 @@ const notificationSchema = new Schema({
   body: String,
   read: Boolean,
   uuid: String,
+  userUuid: String,
 })
 
 module.exports = mongoose.model('notification', notificationSchema)

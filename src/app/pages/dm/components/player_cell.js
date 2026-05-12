@@ -2,6 +2,7 @@
 
 import styles from '../styles.module.css'
 import { updateStatOnCharacter } from '../../../../server_actions/updateStatOnCharacter.js'
+import { sendNotification } from '../../../../server_actions/sendNotification.js'
 
 export default function PlayerCell({ data }) {
   const giveXP = ({ uuid, experience }) => {
@@ -12,8 +13,24 @@ export default function PlayerCell({ data }) {
 
     const update = { experience: newXP }
 
+    const title = 'XP Gained'
+    const body = document.getElementById(`xp-message-${uuid}`).value
+    const notificationUuid = `notification_${
+      Math.floor(Math.random() * 1000000) + 1000000
+    }`
+
+    const notificationSchema = {
+      title,
+      body,
+      type: 'event',
+      read: false,
+      uuid: notificationUuid,
+      userUuid: uuid,
+    }
+
     console.log(update)
     updateStatOnCharacter(uuid, update)
+    sendNotification(notificationSchema, notificationUuid)
     data.experience = newXP
   }
   return (
@@ -21,6 +38,7 @@ export default function PlayerCell({ data }) {
       <div className={styles.cell}>
         <p>{data.name}</p>
         <input type="text" id={`xp-amount-${data.uuid}`}></input>
+        <input type="text" id={`xp-message-${data.uuid}`}></input>
         <button
           onClick={() => {
             console.log(data)

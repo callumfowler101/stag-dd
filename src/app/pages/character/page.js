@@ -20,11 +20,15 @@ function CharacterContent() {
   }
 
   const loadNotifications = async () => {
-    console.log('getting notifications')
     const notifications = await getUnreadNotifications()
-    console.log('notifications retrieved')
+    console.log(notifications)
     if (notifications.length > 0) {
-      setNotification(notifications[0])
+      const { userUuid } = notifications[0]
+      if (userUuid === uuid || userUuid === 0) {
+        console.log('getting notification')
+        console.log(notifications[0])
+        setNotification(notifications[0])
+      }
     }
   }
 
@@ -64,7 +68,7 @@ function CharacterContent() {
           <h3>Stats</h3>
           <ul>
             {Object.entries(data).map((data, idx) => {
-              console.log(data)
+              // console.log(data)
               if (typeof data[1] === 'number' && data[0] !== '__v') {
                 return <li key={idx}>{`${data[0]}: ${data[1]}`}</li>
               } else {
