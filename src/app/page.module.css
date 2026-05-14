@@ -1,32 +1,179 @@
-:root {
-  --rune-green: #246131;
-  --rune-yellow: #e19e25;
-  --rune-blue: #016fbd;
-  --rune-red: #f66739;
-  --rune-brown: #7d6630;
-  --rune-black: #2f2f2f;
-}
-
 .page {
-  display: flex;
   min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-
-  background-color: var(--rune-yellow);
-  font-family: runescape;
+  background: var(--bg);
+  position: relative;
 }
 
-.main {
-  display: flex;
+.root {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
-  width: 100%;
-  max-width: 800px;
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  /* justify-content: space-between; */
-
-  padding: 120px 60px;
   align-items: center;
-  color: var(--rune-black);
+  padding: 28px 16px 64px;
+  gap: 26px;
 }
+
+/* ── Header ── */
+.hdr { text-align: center; }
+.hdrLogo {
+  font-family: var(--rs);
+  font-size: clamp(42px, 9vw, 68px);
+  color: var(--gold);
+  letter-spacing: 6px;
+  line-height: 1;
+  text-shadow: 0 0 50px rgba(201,168,76,0.3), 0 2px 8px var(--shadow);
+}
+.hdrSub {
+  font-family: var(--rs);
+  font-size: 11px;
+  letter-spacing: 8px;
+  color: var(--text-dim);
+  margin-top: 7px;
+  text-transform: uppercase;
+}
+
+/* ── Step indicator ── */
+.steps { display: flex; align-items: center; }
+.stepNode { display: flex; align-items: center; gap: 8px; }
+.stepDot {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--rs); font-size: 11px; color: var(--text-dim);
+  transition: all 0.35s ease; flex-shrink: 0;
+}
+.stepDotActive { border-color: var(--gold); color: var(--gold); box-shadow: 0 0 14px rgba(201,168,76,0.3); }
+.stepDotDone   { border-color: var(--gold-dim); color: var(--gold-dim); background: rgba(201,168,76,0.08); }
+.stepLbl       { font-family: var(--rs); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); transition: color 0.35s; }
+.stepLblActive { color: var(--text-muted); }
+.stepConn      { width: 36px; height: 1px; background: var(--border); margin: 0 8px; flex-shrink: 0; display: inline-block; }
+
+/* ── Wizard panel ── */
+.wizardPanel { width: 100%; max-width: 700px; }
+
+/* ── Class grid ── */
+.classGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 520px) {
+  .classGrid { grid-template-columns: 1fr; }
+}
+
+/* ── Class card ── */
+.clsCard {
+  background: var(--panel-inner);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  position: relative;
+}
+.clsCard:hover { border-color: var(--border-hi); transform: translateY(-2px); box-shadow: 0 6px 24px var(--shadow); }
+.clsCardSel    { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 6px 24px rgba(201,168,76,0.15); }
+
+.clsArt {
+  height: 80px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  background: var(--panel-inner);
+  color: var(--gold);
+}
+.clsArt svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.clsSelMark {
+  position: absolute; top: 6px; right: 6px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--gold); color: var(--bg);
+  font-size: 10px; font-weight: bold;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2;
+}
+
+.clsBody { padding: 12px 14px 14px; }
+.clsName { font-family: var(--rs); font-size: 18px; color: var(--text); margin-bottom: 4px; transition: color 0.2s; }
+.clsCard:hover .clsName,
+.clsCardSel .clsName { color: var(--gold); }
+.clsTag  { font-size: 11px; color: var(--text-muted); font-style: italic; margin-bottom: 10px; line-height: 1.4; }
+
+.miniStats { display: flex; flex-direction: column; gap: 5px; }
+.mstat     { display: flex; align-items: center; gap: 6px; }
+.mstatLbl  { font-family: var(--rs); font-size: 10px; color: var(--text-muted); width: 52px; text-transform: capitalize; }
+.mstatBg   { flex: 1; height: 4px; background: rgba(0,0,0,0.4); overflow: hidden; }
+.mstatFill { height: 100%; transition: width 0.9s ease; }
+.mstatVal  { font-size: 9px; color: var(--gold-dim); width: 20px; text-align: right; }
+
+/* ── Name form ── */
+.nameForm { display: flex; flex-direction: column; gap: 20px; }
+.clsBadge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(201,168,76,0.07); border: 1px solid var(--gold-dim);
+  padding: 5px 14px; font-family: var(--rs); font-size: 13px; color: var(--gold-dim);
+}
+.fldLbl  { font-family: var(--rs); font-size: 13px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 7px; }
+.fldRow  { display: flex; gap: 10px; flex-wrap: wrap; }
+.nameInput { flex: 1; min-width: 130px; font-size: 15px; padding: 10px 14px; }
+.namePreview {
+  font-family: var(--rs); font-size: clamp(18px, 4vw, 24px);
+  color: var(--gold); text-align: center;
+  padding: 16px; background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border); min-height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  letter-spacing: 1px; text-shadow: 0 0 24px rgba(201,168,76,0.18);
+}
+.namePreviewPh { color: var(--text-dim); font-size: 13px; font-style: italic; font-family: Georgia, serif; }
+
+/* ── Preview / Step 3 ── */
+.previewWrap {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 540px) { .previewWrap { grid-template-columns: 1fr; } }
+
+.portraitCol { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.portraitBox {
+  width: 155px; height: 190px;
+  background: repeating-linear-gradient(135deg, #1a1208 0, #1a1208 14px, #0f0a04 14px, #0f0a04 28px);
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.portraitBox::before {
+  content: ''; position: absolute; top: -2px; left: -2px;
+  width: 16px; height: 16px;
+  border-top: 2px solid var(--gold-dim); border-left: 2px solid var(--gold-dim);
+}
+.portraitBox::after {
+  content: ''; position: absolute; bottom: -2px; right: -2px;
+  width: 16px; height: 16px;
+  border-bottom: 2px solid var(--gold-dim); border-right: 2px solid var(--gold-dim);
+}
+.portraitInnerTl {
+  position: absolute; top: 6px; right: -2px;
+  width: 16px; height: 16px;
+  border-top: 2px solid var(--gold-dim); border-right: 2px solid var(--gold-dim);
+}
+.portraitInnerBr {
+  position: absolute; bottom: 6px; left: -2px;
+  width: 16px; height: 16px;
+  border-bottom: 2px solid var(--gold-dim); border-left: 2px solid var(--gold-dim);
+}
+.portraitLbl { font-family: monospace; font-size: 9px; color: var(--text-dim); background: rgba(0,0,0,0.55); padding: 3px 8px; }
+.previewName { font-family: var(--rs); font-size: 15px; color: var(--gold); text-align: center; letter-spacing: 1px; }
+.previewCls  { font-size: 11px; color: var(--text-muted); font-style: italic; text-align: center; }
+
+/* ── Success screen ── */
+.successBody { text-align: center; padding: clamp(32px, 6vw, 56px) clamp(20px, 4vw, 32px); }
+.successGlyph { font-size: 44px; margin-bottom: 16px; filter: drop-shadow(0 0 16px rgba(201,168,76,0.4)); }
+.uuidBox {
+  background: rgba(201,168,76,0.05); border: 1px solid var(--border);
+  padding: 14px 28px; display: inline-block; margin: 20px 0 10px;
+}
+.uuidLbl { font-family: var(--rs); font-size: 10px; color: var(--text-dim); letter-spacing: 2px; margin-bottom: 6px; }
+.uuidVal { font-family: monospace; font-size: 15px; color: var(--gold); letter-spacing: 3px; }
+.successNote { font-size: 12px; color: var(--text-dim); font-style: italic; margin-top: 6px; }
