@@ -1,42 +1,172 @@
-.container {
+/* ── DM Header ── */
+.dmHeader {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: clamp(14px, 2vw, 22px) clamp(20px, 4vw, 40px);
   display: flex;
-  flex-direction: column;
-
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
 }
-
-.container * {
-  width: 50%;
+.dmTitle {
+  font-family: var(--rs);
+  font-size: clamp(20px, 4vw, 32px);
+  color: var(--gold);
+  letter-spacing: 2px;
 }
+.dmSub {
+  font-family: var(--rs);
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 3px;
+  margin-top: 4px;
+}
+.sessionBadge { display: flex; align-items: center; gap: 8px; }
+.sessionDot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #4a8a4a;
+  animation: sessionPulse 2s ease-in-out infinite;
+}
+@keyframes sessionPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(74,138,74,0.5); }
+  50%     { box-shadow: 0 0 0 4px rgba(74,138,74,0); }
+}
+.sessionLbl { font-family: var(--rs); font-size: 12px; color: #6ab06a; letter-spacing: 1px; }
 
-.sub_container {
+/* ── Main layout ── */
+.dmMain {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 320px;
+  min-height: calc(100vh - 46px - 80px);
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .dmMain { grid-template-columns: 1fr; }
 }
 
-.cell {
-  width: auto;
-  aspect-ratio: 1/1;
-  border: solid white 2px;
-  border-radius: 5%;
+/* ── Players column ── */
+.playersCol {
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  margin: 5px;
+}
+.playersHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.playerCount {
+  font-family: var(--rs);
+  font-size: 11px;
+  color: var(--text-dim);
+  background: rgba(201,168,76,0.06);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+}
+.playerList { display: flex; flex-direction: column; }
+
+/* ── Player row ── */
+.playerRow {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.5s;
+}
+.xpFlash { background: rgba(201,168,76,0.12); }
+.playerRowMain {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 20px;
+}
+.playerEmblem {
+  width: 48px; height: 34px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.playerEmblem svg { width: 100%; height: 100%; }
+.playerInfo { flex: 1; min-width: 100px; }
+.playerName { font-family: var(--rs); font-size: 16px; color: var(--text); }
+.playerMeta { font-size: 11px; color: var(--text-muted); text-transform: capitalize; margin-top: 2px; }
+.playerXpBadge {
+  font-family: var(--rs); font-size: 11px; color: var(--gold-dim);
+  background: rgba(201,168,76,0.06); border: 1px solid var(--gold-dim);
+  padding: 3px 8px; flex-shrink: 0;
+}
+.xpControls { display: flex; align-items: center; gap: 6px; }
+.xpInput { width: 72px; font-size: 13px; padding: 6px 8px; }
+.expandBtn {
+  font-family: var(--rs); font-size: 10px;
+  color: var(--text-dim); background: transparent;
+  border: 1px solid var(--border); padding: 4px 8px;
+  cursor: pointer; transition: all 0.2s;
+  flex-shrink: 0;
+}
+.expandBtn:hover { border-color: var(--border-hi); color: var(--text-muted); }
+.expandBtnOpen { color: var(--gold-dim); border-color: var(--gold-dim); }
+
+.playerStats {
+  padding: 12px 20px 16px 80px;
+  background: rgba(0,0,0,0.2);
+  animation: fadeUp 0.3s ease;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.cell * {
-  width: 100%;
+/* ── Events column ── */
+.eventsCol {
+  background: var(--panel-inner);
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+}
+.eventsHead {
+  padding: 16px 16px 10px;
+  border-bottom: 1px solid var(--border);
 }
 
-.cell button {
-  border: solid white 1px;
-  background: grey;
-  color: black;
+.eventLog {
+  flex: 1;
+  max-height: 340px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 8px 0;
 }
+.eventItem {
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(90,62,20,0.3);
+  transition: background 0.5s;
+}
+.newEvent { background: rgba(201,168,76,0.1); }
+.eventTime { font-family: var(--rs); font-size: 10px; color: var(--text-dim); display: block; margin-bottom: 2px; }
+.eventTitle { font-family: var(--rs); font-size: 12px; margin-bottom: 2px; }
+.eventBody  { font-size: 11px; color: var(--text-muted); }
 
-.notificationContainer {
-  background: grey;
-  width: 75%;
+/* Event type colours */
+.eventType_xp     .eventTitle { color: #6ac06a; }
+.eventType_system .eventTitle { color: var(--text-dim); }
+.eventType_notif  .eventTitle { color: var(--gold-dim); }
+
+/* ── Broadcast form ── */
+.notifForm {
+  padding: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
+.targetRow { display: flex; flex-wrap: wrap; gap: 6px; }
+.targetBtn {
+  font-family: var(--rs); font-size: 11px;
+  padding: 5px 10px; cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--border); color: var(--text-muted);
+  transition: all 0.2s;
+}
+.targetBtn:hover { border-color: var(--border-hi); color: var(--text); }
+.targetBtnSel    { border-color: var(--gold-dim); color: var(--gold-dim); background: rgba(201,168,76,0.07); }
