@@ -6,12 +6,14 @@ const Notification = require('../mongoose_models/notification.js')
 
 const uri = process.env.DATABASE_URI
 
+let connected = false
+
 // Hero
 const initCharacterToDb = async (_heroSchema, _uuid) => {
+  await initDB()
   const hero = new Hero()
 
   for (const [key, value] of Object.entries(_heroSchema)) {
-    // console.log(`${key}: ${value}`)
     hero[key] = value
   }
 
@@ -21,94 +23,64 @@ const initCharacterToDb = async (_heroSchema, _uuid) => {
 }
 
 const initDB = async () => {
+  if (connected) return
   console.log('connecting to mongo')
-
-  mongoose.connect(uri)
-  mongoose.connection.once('open', () => {
-    console.log('mongodb connected')
-  })
-
-  // initCharacterToDb()
+  await mongoose.connect(uri)
+  connected = true
+  console.log('mongodb connected')
 }
 
 const addDataToDb = () => {}
 
-const getCharacterFromDb = (uuid) => {
-  return new Promise(async (res, rej) => {
-    console.log(uuid)
-    const data = await Hero.findOne({ uuid })
-    res(data)
-  })
+const getCharacterFromDb = async (uuid) => {
+  await initDB()
+  return Hero.findOne({ uuid })
 }
 
-const entryExists = (uuid) => {
-  return new Promise(async (res, rej) => {
-    console.log(uuid)
-    const result = await Hero.exists({ uuid })
-    res(result)
-  })
+const entryExists = async (uuid) => {
+  await initDB()
+  return Hero.exists({ uuid })
 }
 
-const getAllCharactersFromDb = () => {
-  return new Promise(async (res, rej) => {
-    const data = await Hero.find({})
-    res(data)
-  })
+const getAllCharactersFromDb = async () => {
+  await initDB()
+  return Hero.find({})
 }
 
-const updateCharacterStat = (uuid, update) => {
-  return new Promise(async (res, rej) => {
-    try {
-      const updatedDoc = await Hero.findOneAndUpdate({ uuid }, update, {})
-
-      console.log(updatedDoc)
-      res(true)
-    } catch {
-      rej(false)
-    }
-  })
+const updateCharacterStat = async (uuid, update) => {
+  await initDB()
+  try {
+    await Hero.findOneAndUpdate({ uuid }, update, {})
+    return true
+  } catch {
+    return false
+  }
 }
 
 // Notification
 const addNotificationToDb = async (_notificationSchema, _uuid) => {
+  await initDB()
   const notification = new Notification()
   for (const [key, value] of Object.entries(_notificationSchema)) {
     notification[key] = value
   }
-
-  console.log(notification)
   await notification.save()
   console.log('notification saved')
 }
 
-const markAsRead = (uuid) => {
-  return new Promise(async (res, rej) => {
-    try {
-      const update = await Notification.findOneAndUpdate(
-        { uuid },
-        { read: true },
-        {}
-      )
-      res()
-    } catch (err) {
-      console.log(err)
-      rej()
-    }
-  })
+const markAsRead = async (uuid) => {
+  await initDB()
+  return Notification.findOneAndUpdate({ uuid }, { read: true }, {})
 }
 
 const getAllUnreadNotifications = async () => {
-  return new Promise(async (res, rej) => {
-    const data = await Notification.find({ read: false })
-    res(data)
-  })
+  await initDB()
+  return Notification.find({ read: false })
 }
 
 const getAllNotifications = async () => {
-  return new Promise(async (res, rej) => {
-    const data = await Notification.find({})
-    res(data)
-  })
+  await initDB()
+  return Notification.find({})
 }
 
 export {
