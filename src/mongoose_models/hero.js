@@ -1,7 +1,6 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
+import mongoose from 'mongoose'
 
-const heroSchema = new Schema({
+const heroSchema = new mongoose.Schema({
   name: String,
   title: String,
   uuid: String,
@@ -17,6 +16,8 @@ const heroSchema = new Schema({
 
 console.log('bang')
 
-module.exports = mongoose.models
-  ? mongoose.models.heros
-  : mongoose.model('heros', heroSchema)
+// module.exports = mongoose.models
+//   ? mongoose.models.heros
+//   : mongoose.model('heros', heroSchema)
+const HeroModel = mongoose.models.heros || mongoose.model('heros', heroSchema)
+export default HeroModel

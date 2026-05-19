@@ -1,7 +1,6 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
+import mongoose from 'mongoose'
 
-const notificationSchema = new Schema({
+const notificationSchema = new mongoose.Schema({
   title: String,
   type: String,
   body: String,
@@ -10,6 +9,8 @@ const notificationSchema = new Schema({
   userUuid: String,
 })
 
-module.exports = mongoose.models
-  ? mongoose.models.notifications
-  : mongoose.model('notification', notificationSchema)
+const NotificationModel =
+  mongoose.models.notification ||
+  mongoose.model('notification', notificationSchema)
+
+export default NotificationModel

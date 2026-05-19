@@ -12,7 +12,7 @@ import {
 } from '../stores/game_data.js'
 import { submitCharacter } from '../server_actions/submitCharacter.js'
 
-import { initDB } from '../scripts/database.js'
+// import { initDB } from '../scripts/database.js'
 
 /* ── Helpers ── */
 function genUuid() {

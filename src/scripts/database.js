@@ -1,7 +1,12 @@
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-const Hero = require('../mongoose_models/hero.js')
-const Notification = require('../mongoose_models/notification.js')
+// const mongoose = require('mongoose')
+// const dotenv = require('dotenv')
+// const Hero = require('../mongoose_models/hero.js')
+// const Notification = require('../mongoose_models/notification.js')
+
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+import Hero from '../mongoose_models/hero.js'
+import Notification from '../mongoose_models/notification.js'
 
 // dotenv.config()
 
