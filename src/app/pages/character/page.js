@@ -68,15 +68,27 @@ function CharacterContent() {
     if (!uuid) return
     Promise.all([getCharacter(uuid), getUnreadNotifications()]).then(
       ([char, notifs]) => {
-        console.log('character retrieved')
         setData(char)
         if (notifs.length > 0) {
           const n = notifs[0]
-          if (n.userUuid === uuid || n.userUuid === 0) setNotification(n)
+          if (n.userUuid === uuid || n.userUuid === '0') setNotification(n)
         }
         setLoading(false)
       }
     )
+  }, [uuid])
+
+  useEffect(() => {
+    if (!uuid) return
+    const interval = setInterval(() => {
+      getUnreadNotifications().then((notifs) => {
+        if (notifs.length > 0) {
+          const n = notifs[0]
+          if (n.userUuid === uuid || n.userUuid === '0') setNotification(n)
+        }
+      })
+    }, 5000)
+    return () => clearInterval(interval)
   }, [uuid])
 
   const dismissNotif = () => {
