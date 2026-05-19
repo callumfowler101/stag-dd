@@ -324,7 +324,7 @@ export default function Home() {
   const [character, setCharacter] = useState(null)
   const [createdUuid, setCreatedUuid] = useState(null)
 
-  initDB()
+  // initDB()
 
   const handleConfirm = async () => {
     const uuid = genUuid()

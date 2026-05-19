@@ -3,6 +3,7 @@ const { Schema } = mongoose
 
 const heroSchema = new Schema({
   name: String,
+  title: String,
   uuid: String,
   classname: String,
   info: String,
@@ -16,4 +17,6 @@ const heroSchema = new Schema({
 
 console.log('bang')
 
-module.exports = mongoose.model('heros', heroSchema)
+module.exports = mongoose.models
+  ? mongoose.models.heros
+  : mongoose.model('heros', heroSchema)

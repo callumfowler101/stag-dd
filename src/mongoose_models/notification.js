@@ -10,4 +10,6 @@ const notificationSchema = new Schema({
   userUuid: String,
 })
 
-module.exports = mongoose.model('notification', notificationSchema)
+module.exports = mongoose.models
+  ? mongoose.models.notifications
+  : mongoose.model('notification', notificationSchema)
