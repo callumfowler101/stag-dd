@@ -69,10 +69,8 @@ function CharacterContent() {
     Promise.all([getCharacter(uuid), getUnreadNotifications()]).then(
       ([char, notifs]) => {
         setData(char)
-        if (notifs.length > 0) {
-          const n = notifs[0]
-          if (n.userUuid === uuid || n.userUuid === '0') setNotification(n)
-        }
+        const n = notifs.find((n) => n.userUuid === uuid || n.userUuid === '0')
+        if (n) setNotification(n)
         setLoading(false)
       }
     )
@@ -82,10 +80,8 @@ function CharacterContent() {
     if (!uuid) return
     const interval = setInterval(() => {
       getUnreadNotifications().then((notifs) => {
-        if (notifs.length > 0) {
-          const n = notifs[0]
-          if (n.userUuid === uuid || n.userUuid === '0') setNotification(n)
-        }
+        const n = notifs.find((n) => n.userUuid === uuid || n.userUuid === '0')
+        if (n) setNotification(n)
       })
     }, 5000)
     return () => clearInterval(interval)
