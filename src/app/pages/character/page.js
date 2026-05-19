@@ -5,76 +5,99 @@ import Link from 'next/link'
 import styles from './character_page.module.css'
 import ClassEmblem from '../../../components/class_emblem.js'
 import NotifOverlay from '../../../components/notif_overlay.js'
-import { STAT_ORDER, STAT_COLORS, getLevel, getXPPct, getXPToNext } from '../../../stores/game_data.js'
+import {
+  STAT_ORDER,
+  STAT_COLORS,
+  getLevel,
+  getXPPct,
+  getXPToNext,
+} from '../../../stores/game_data.js'
 import { getCharacter } from '../../../server_actions/getCharacter.js'
 import { getUnreadNotifications } from '../../../server_actions/getUnreadNotifications.js'
 import { setNotificationAsRead } from '../../../server_actions/setNotificationAsRead.js'
 
 /* ── Animated XP bar ── */
 function XPBar({ xp }) {
-  const [pct, setPct] = useState(0);
-  useEffect(() => { const t = setTimeout(() => setPct(getXPPct(xp)), 300); return () => clearTimeout(t); }, [xp]);
-  const level = getLevel(xp);
+  const [pct, setPct] = useState(0)
+  useEffect(() => {
+    const t = setTimeout(() => setPct(getXPPct(xp)), 300)
+    return () => clearTimeout(t)
+  }, [xp])
+  const level = getLevel(xp)
   return (
     <div className={styles.heroXp}>
       <div className={styles.heroXpBg}>
         <div className={styles.heroXpFill} style={{ width: `${pct}%` }} />
       </div>
-      <span className={styles.heroXpTxt}>{xp} · {getXPToNext(xp)} to Lv{level + 1}</span>
+      <span className={styles.heroXpTxt}>
+        {xp} · {getXPToNext(xp)} to Lv{level + 1}
+      </span>
     </div>
-  );
+  )
 }
 
 /* ── Animated stat bar ── */
 function StatBar({ stat, value, delay = 0 }) {
-  const [w, setW] = useState(0);
-  useEffect(() => { const t = setTimeout(() => setW(value), 180 + delay); return () => clearTimeout(t); }, [value, delay]);
+  const [w, setW] = useState(0)
+  useEffect(() => {
+    const t = setTimeout(() => setW(value), 180 + delay)
+    return () => clearTimeout(t)
+  }, [value, delay])
   return (
     <div className={`stat-row${stat === 'experience' ? ' xp' : ''}`}>
       <span className="stat-lbl">{stat}</span>
       <div className="stat-bg">
-        <div className="stat-fill" style={{ width: `${w}%`, background: STAT_COLORS[stat] }} />
+        <div
+          className="stat-fill"
+          style={{ width: `${w}%`, background: STAT_COLORS[stat] }}
+        />
       </div>
       <span className="stat-val">{value}</span>
     </div>
-  );
+  )
 }
 
 function CharacterContent() {
-  const [data,         setData]         = useState(null);
-  const [notification, setNotification] = useState(null);
-  const [loading,      setLoading]      = useState(true);
-  const searchParams = useSearchParams();
-  const uuid = searchParams.get('uuid');
+  const [data, setData] = useState(null)
+  const [notification, setNotification] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const searchParams = useSearchParams()
+  const uuid = searchParams.get('uuid')
 
   useEffect(() => {
-    if (!uuid) return;
-    Promise.all([
-      getCharacter(uuid),
-      getUnreadNotifications(),
-    ]).then(([char, notifs]) => {
-      setData(char);
-      if (notifs.length > 0) {
-        const n = notifs[0];
-        if (n.userUuid === uuid || n.userUuid === 0) setNotification(n);
+    if (!uuid) return
+    Promise.all([getCharacter(uuid), getUnreadNotifications()]).then(
+      ([char, notifs]) => {
+        console.log('character retrieved')
+        setData(char)
+        if (notifs.length > 0) {
+          const n = notifs[0]
+          if (n.userUuid === uuid || n.userUuid === 0) setNotification(n)
+        }
+        setLoading(false)
       }
-      setLoading(false);
-    });
-  }, [uuid]);
+    )
+  }, [uuid])
 
   const dismissNotif = () => {
-    setNotificationAsRead(notification.uuid);
-    setNotification(null);
-  };
+    setNotificationAsRead(notification.uuid)
+    setNotification(null)
+  }
 
   if (loading) {
     return (
       <div className={styles.loadingWrap}>
-        <span style={{ fontFamily: 'var(--rs)', color: 'var(--text-muted)', letterSpacing: 2 }}>
+        <span
+          style={{
+            fontFamily: 'var(--rs)',
+            color: 'var(--text-muted)',
+            letterSpacing: 2,
+          }}
+        >
           Loading…
         </span>
       </div>
-    );
+    )
   }
 
   if (!data) {
@@ -84,17 +107,19 @@ function CharacterContent() {
           Hero not found.
         </span>
       </div>
-    );
+    )
   }
 
-  const fullName = `${data.name} ${data.title}`;
-  const level    = getLevel(data.experience);
+  const fullName = `${data.name} ${data.title}`
+  const level = getLevel(data.experience)
 
   return (
     <>
       {/* Nav */}
       <nav className="nav">
-        <Link href="/" className="nav-logo">⬧ Stagscape</Link>
+        <Link href="/" className="nav-logo">
+          ⬧ Stagscape
+        </Link>
         <div className="nav-links">
           <span className="nav-link active">Character</span>
         </div>
@@ -145,7 +170,9 @@ function CharacterContent() {
               </div>
               <div className={`${styles.infoRow} ${styles.infoRowLast}`}>
                 <span className={styles.infoKey}>UUID</span>
-                <span className={`${styles.infoVal} ${styles.infoValMono}`}>#{data.uuid}</span>
+                <span className={`${styles.infoVal} ${styles.infoValMono}`}>
+                  #{data.uuid}
+                </span>
               </div>
             </div>
           </div>
@@ -172,24 +199,49 @@ function CharacterContent() {
 
       <div className="footer">
         STAGSCAPE · CAMPAIGN COMPANION · 2026 ·{' '}
-        <Link href="/" style={{ color: 'var(--text-dim)', fontFamily: 'var(--rs)', fontSize: 10, letterSpacing: 2 }}>
+        <Link
+          href="/"
+          style={{
+            color: 'var(--text-dim)',
+            fontFamily: 'var(--rs)',
+            fontSize: 10,
+            letterSpacing: 2,
+          }}
+        >
           new hero
         </Link>
       </div>
 
       <NotifOverlay notif={notification} onDismiss={dismissNotif} />
     </>
-  );
+  )
 }
 
 export default function CharacterPage() {
   return (
-    <Suspense fallback={
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
-        <span style={{ fontFamily: 'var(--rs)', color: 'var(--text-muted)', letterSpacing: 2 }}>Loading…</span>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100vh',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'var(--rs)',
+              color: 'var(--text-muted)',
+              letterSpacing: 2,
+            }}
+          >
+            Loading…
+          </span>
+        </div>
+      }
+    >
       <CharacterContent />
     </Suspense>
-  );
+  )
 }

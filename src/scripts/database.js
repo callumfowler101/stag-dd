@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
+const dotenv = require('dotenv')
 const Hero = require('../mongoose_models/hero.js')
 const Notification = require('../mongoose_models/notification.js')
+
+// dotenv.config()
 
 // console.log(Hero)
 

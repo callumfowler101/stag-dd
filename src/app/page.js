@@ -12,6 +12,8 @@ import {
 } from '../stores/game_data.js'
 import { submitCharacter } from '../server_actions/submitCharacter.js'
 
+import { initDB } from '../scripts/database.js'
+
 /* ── Helpers ── */
 function genUuid() {
   return String(Math.floor(Math.random() * 1000000) + 1000000)
@@ -305,7 +307,7 @@ function SuccessScreen({ character, selectedClass, uuid }) {
         >
           <button
             className="rs-btn rs-btn-ghost"
-            onClick={() => router.push(`/pages/character?id=${uuid}`)}
+            onClick={() => router.push(`/pages/character?uuid=${uuid}`)}
           >
             Go to hero page
           </button>
@@ -321,6 +323,8 @@ export default function Home() {
   const [selectedClass, setSelectedClass] = useState(null)
   const [character, setCharacter] = useState(null)
   const [createdUuid, setCreatedUuid] = useState(null)
+
+  initDB()
 
   const handleConfirm = async () => {
     const uuid = genUuid()
