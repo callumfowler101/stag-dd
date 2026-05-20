@@ -42,9 +42,9 @@ export const CLASSES = [
     top: ['fishing', 'luck', 'wisdom'],
   },
   {
-    id: 'wizard',
+    id: 'dungeon_master',
     name: 'Wizard',
-    tagline: 'Weaver of fate, architect of worlds',
+    tagline: 'Master of arcana, presider of realms',
     stats: {
       luck: 70,
       wisdom: 90,
