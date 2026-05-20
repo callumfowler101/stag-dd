@@ -209,17 +209,6 @@ export default function DmClient({ initialPlayers }) {
     );
     addEvent({ type: 'xp', title: 'XP Gained', body: `${name} earned ${amount} XP.` });
     updateStatOnCharacter(uuid, { experience: newXP });
-    const notifUuid = `notification_${Math.floor(Math.random() * 1000000) + 1000000}`;
-    sendNotification({
-      title: 'XP Gained!',
-      body: `${name}, you have been awarded ${amount} XP. Keep fighting!`,
-      type: 'event',
-      read: false,
-      uuid: notifUuid,
-      userUuid: uuid,
-    }, notifUuid);
-    setIsPreview(true);
-    setNotif({ title: 'XP Gained!', body: `${name}, you have been awarded ${amount} XP. Keep fighting!` });
   };
 
   const handleBroadcast = ({ title, body, target }) => {
