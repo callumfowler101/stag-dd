@@ -11,6 +11,7 @@ import {
   STAT_COLORS,
 } from '../stores/game_data.js'
 import { submitCharacter } from '../server_actions/submitCharacter.js'
+import { peekPortrait } from '../server_actions/peekPortrait.js'
 
 // import { initDB } from '../scripts/database.js'
 
@@ -231,7 +232,7 @@ function Step2({ selectedClass, onBack, onNext }) {
 }
 
 /* ── Step 3: Confirm ── */
-function Step3({ character, selectedClass, onBack, onConfirm }) {
+function Step3({ character, selectedClass, portrait, onBack, onConfirm }) {
   return (
     <div className={`panel fade-in ${styles.wizardPanel}`}>
       <div className="panel-body">
@@ -244,7 +245,15 @@ function Step3({ character, selectedClass, onBack, onConfirm }) {
             <div className={styles.portraitBox}>
               <div className={styles.portraitInnerTl} />
               <div className={styles.portraitInnerBr} />
-              <span className={styles.portraitLbl}>character portrait</span>
+              {portrait ? (
+                <img
+                  src={`/portraits/${portrait}.png`}
+                  alt="Character portrait"
+                  className={styles.portraitImg}
+                />
+              ) : (
+                <span className={styles.portraitLbl}>character portrait</span>
+              )}
             </div>
             <div className={styles.previewName}>{character.fullName}</div>
             <div className={styles.previewCls}>{selectedClass.name}</div>
@@ -336,6 +345,7 @@ export default function Home() {
   const [character, setCharacter] = useState(null)
   const [createdUuid, setCreatedUuid] = useState(null)
   const [createdPortrait, setCreatedPortrait] = useState(null)
+  const [previewPortrait, setPreviewPortrait] = useState(null)
 
   // initDB()
 
@@ -348,7 +358,7 @@ export default function Home() {
       uuid,
       ...selectedClass.stats,
     }
-    const portrait = await submitCharacter(heroSchema, uuid)
+    const portrait = await submitCharacter(heroSchema, uuid, previewPortrait)
     setCreatedUuid(uuid)
     setCreatedPortrait(portrait)
     setStep('done')
@@ -378,8 +388,10 @@ export default function Home() {
           <Step2
             selectedClass={selectedClass}
             onBack={() => setStep(1)}
-            onNext={(char) => {
+            onNext={async (char) => {
               setCharacter(char)
+              const p = await peekPortrait()
+              setPreviewPortrait(p)
               setStep(3)
             }}
           />
@@ -388,6 +400,7 @@ export default function Home() {
           <Step3
             character={character}
             selectedClass={selectedClass}
+            portrait={previewPortrait}
             onBack={() => setStep(2)}
             onConfirm={handleConfirm}
           />

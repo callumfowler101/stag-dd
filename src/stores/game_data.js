@@ -42,7 +42,7 @@ export const CLASSES = [
     top: ['fishing', 'luck', 'wisdom'],
   },
   {
-    id: 'dungeon_master',
+    id: 'wizard',
     name: 'Wizard',
     tagline: 'Master of arcana, presider of realms',
     stats: {
@@ -89,3 +89,9 @@ export const XP_PER_LVL = 1000
 export const getLevel = (xp) => Math.floor(xp / XP_PER_LVL) + 1
 export const getXPPct = (xp) => ((xp % XP_PER_LVL) / XP_PER_LVL) * 100
 export const getXPToNext = (xp) => XP_PER_LVL - (xp % XP_PER_LVL)
+
+// Maps a stored class id (including legacy 'dungeon_master') to its display name
+export const getClassName = (id) => {
+  if (id === 'dungeon_master') return 'Wizard'
+  return CLASSES.find((c) => c.id === id)?.name ?? id
+}
