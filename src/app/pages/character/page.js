@@ -39,11 +39,12 @@ function XPBar({ xp }) {
 
 /* ── Animated stat bar ── */
 function StatBar({ stat, value, delay = 0 }) {
+  const pct = stat === 'experience' ? getXPPct(value) : value
   const [w, setW] = useState(0)
   useEffect(() => {
-    const t = setTimeout(() => setW(value), 180 + delay)
+    const t = setTimeout(() => setW(pct), 180 + delay)
     return () => clearTimeout(t)
-  }, [value, delay])
+  }, [pct, delay])
   return (
     <div className={`stat-row${stat === 'experience' ? ' xp' : ''}`}>
       <span className="stat-lbl">{stat}</span>

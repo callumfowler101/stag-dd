@@ -4,15 +4,16 @@ import Link from 'next/link'
 import styles from './styles.module.css'
 import ClassEmblem from '../../../components/class_emblem.js'
 import NotifOverlay from '../../../components/notif_overlay.js'
-import { STAT_ORDER, STAT_COLORS, getLevel, getClassName } from '../../../stores/game_data.js'
+import { STAT_ORDER, STAT_COLORS, getLevel, getClassName, getXPPct } from '../../../stores/game_data.js'
 import { updateStatOnCharacter } from '../../../server_actions/updateStatOnCharacter.js'
 import { sendNotification } from '../../../server_actions/sendNotification.js'
 import { useEffect } from 'react'
 
 /* ── Stat bar ── */
 function StatBar({ stat, value, delay = 0 }) {
+  const pct = stat === 'experience' ? getXPPct(value) : value;
   const [w, setW] = useState(0);
-  useEffect(() => { const t = setTimeout(() => setW(value), 120 + delay); return () => clearTimeout(t); }, [value, delay]);
+  useEffect(() => { const t = setTimeout(() => setW(pct), 120 + delay); return () => clearTimeout(t); }, [pct, delay]);
   return (
     <div className={`stat-row${stat === 'experience' ? ' xp' : ''}`}>
       <span className="stat-lbl">{stat}</span>
