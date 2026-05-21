@@ -170,6 +170,32 @@
 /* ── Success screen ── */
 .successBody { text-align: center; padding: clamp(32px, 6vw, 56px) clamp(20px, 4vw, 32px); }
 .successGlyph { font-size: 44px; margin-bottom: 16px; filter: drop-shadow(0 0 16px rgba(201,168,76,0.4)); }
+.successPortraitBox {
+  width: 120px; height: 120px;
+  margin: 0 auto 16px;
+  border: 1.5px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.successPortraitBox::before {
+  content: ''; position: absolute; top: -2px; left: -2px;
+  width: 14px; height: 14px;
+  border-top: 2px solid var(--gold-dim); border-left: 2px solid var(--gold-dim);
+  z-index: 1;
+}
+.successPortraitBox::after {
+  content: ''; position: absolute; bottom: -2px; right: -2px;
+  width: 14px; height: 14px;
+  border-bottom: 2px solid var(--gold-dim); border-right: 2px solid var(--gold-dim);
+  z-index: 1;
+}
+.successPortraitImg {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  image-rendering: pixelated;
+}
 .uuidBox {
   background: rgba(201,168,76,0.05); border: 1px solid var(--border);
   padding: 14px 28px; display: inline-block; margin: 20px 0 10px;

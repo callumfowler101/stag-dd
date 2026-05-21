@@ -45,7 +45,15 @@ function PlayerRow({ player, onGiveXP }) {
     <div className={`${styles.playerRow}${flash ? ' ' + styles.xpFlash : ''}`}>
       <div className={styles.playerRowMain}>
         <div className={styles.playerEmblem}>
-          <ClassEmblem id={player.classname} />
+          {player.portrait ? (
+            <img
+              src={`/portraits/${player.portrait}.png`}
+              alt={player.name}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', imageRendering: 'pixelated' }}
+            />
+          ) : (
+            <ClassEmblem id={player.classname} />
+          )}
         </div>
         <div className={styles.playerInfo}>
           <div className={styles.playerName}>{fullName}</div>

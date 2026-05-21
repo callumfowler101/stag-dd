@@ -274,12 +274,24 @@ function Step3({ character, selectedClass, onBack, onConfirm }) {
 }
 
 /* ── Success screen ── */
-function SuccessScreen({ character, selectedClass, uuid }) {
+function SuccessScreen({ character, selectedClass, uuid, portrait }) {
   const router = useRouter()
   return (
     <div className={`panel fade-in ${styles.wizardPanel}`}>
       <div className={`panel-body ${styles.successBody}`}>
-        <div className={styles.successGlyph}>⚔</div>
+        {portrait ? (
+          <div className={styles.successPortraitBox}>
+            <div className={styles.portraitInnerTl} />
+            <div className={styles.portraitInnerBr} />
+            <img
+              src={`/portraits/${portrait}.png`}
+              alt={`${character.name} portrait`}
+              className={styles.successPortraitImg}
+            />
+          </div>
+        ) : (
+          <div className={styles.successGlyph}>⚔</div>
+        )}
         <div className="sec-title" style={{ textAlign: 'center' }}>
           The Adventure Begins
         </div>
@@ -323,6 +335,7 @@ export default function Home() {
   const [selectedClass, setSelectedClass] = useState(null)
   const [character, setCharacter] = useState(null)
   const [createdUuid, setCreatedUuid] = useState(null)
+  const [createdPortrait, setCreatedPortrait] = useState(null)
 
   // initDB()
 
@@ -335,8 +348,9 @@ export default function Home() {
       uuid,
       ...selectedClass.stats,
     }
-    await submitCharacter(heroSchema, uuid)
+    const portrait = await submitCharacter(heroSchema, uuid)
     setCreatedUuid(uuid)
+    setCreatedPortrait(portrait)
     setStep('done')
   }
 
@@ -383,6 +397,7 @@ export default function Home() {
             character={character}
             selectedClass={selectedClass}
             uuid={createdUuid}
+            portrait={createdPortrait}
           />
         )}
 
