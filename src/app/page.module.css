@@ -147,24 +147,28 @@
   content: ''; position: absolute; top: -2px; left: -2px;
   width: 16px; height: 16px;
   border-top: 2px solid var(--gold-dim); border-left: 2px solid var(--gold-dim);
+  z-index: 1;
 }
 .portraitBox::after {
   content: ''; position: absolute; bottom: -2px; right: -2px;
   width: 16px; height: 16px;
   border-bottom: 2px solid var(--gold-dim); border-right: 2px solid var(--gold-dim);
+  z-index: 1;
 }
 .portraitInnerTl {
-  position: absolute; top: 6px; right: -2px;
+  position: absolute; top: -2px; right: -2px;
   width: 16px; height: 16px;
   border-top: 2px solid var(--gold-dim); border-right: 2px solid var(--gold-dim);
+  z-index: 1;
 }
 .portraitInnerBr {
-  position: absolute; bottom: 6px; left: -2px;
+  position: absolute; bottom: -2px; left: -2px;
   width: 16px; height: 16px;
   border-bottom: 2px solid var(--gold-dim); border-left: 2px solid var(--gold-dim);
+  z-index: 1;
 }
-.portraitLbl { font-family: monospace; font-size: 9px; color: var(--text-dim); background: rgba(0,0,0,0.55); padding: 3px 8px; }
-.portraitImg { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; image-rendering: pixelated; }
+.portraitLbl { font-family: monospace; font-size: 9px; color: var(--text-dim); background: rgba(0,0,0,0.55); padding: 3px 8px; position: relative; z-index: 1; }
+.portraitImg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; image-rendering: pixelated; z-index: 0; }
 .previewName { font-family: var(--rs); font-size: 15px; color: var(--gold); text-align: center; letter-spacing: 1px; }
 .previewCls  { font-size: 11px; color: var(--text-muted); font-style: italic; text-align: center; }
 
