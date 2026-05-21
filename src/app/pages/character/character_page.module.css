@@ -108,6 +108,13 @@
   font-family: monospace; font-size: 9px; color: var(--text-dim);
   background: rgba(0,0,0,0.55); padding: 3px 8px;
 }
+.portraitImg {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  image-rendering: pixelated;
+}
 
 .infoRow {
   display: flex;

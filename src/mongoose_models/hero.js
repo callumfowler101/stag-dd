@@ -12,6 +12,7 @@ const heroSchema = new mongoose.Schema({
   speed: Number,
   fishing: Number,
   experience: Number,
+  portrait: String,
 })
 
 console.log('bang')

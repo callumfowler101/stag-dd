@@ -161,7 +161,15 @@ function CharacterContent() {
                 <div className={styles.portraitBox}>
                   <div className={styles.portraitInnerTl} />
                   <div className={styles.portraitInnerBr} />
-                  <span className={styles.portraitLbl}>character portrait</span>
+                  {data.portrait ? (
+                    <img
+                      src={`/portraits/${data.portrait}.png`}
+                      alt={`${data.name} portrait`}
+                      className={styles.portraitImg}
+                    />
+                  ) : (
+                    <span className={styles.portraitLbl}>character portrait</span>
+                  )}
                 </div>
               </div>
               <div className={styles.infoRow}>

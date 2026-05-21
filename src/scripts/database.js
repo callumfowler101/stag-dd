@@ -65,6 +65,18 @@ const updateCharacterStat = async (uuid, update) => {
   }
 }
 
+const ALL_PORTRAITS = ['1','2','3','4','5','6','7','8','9','10','11']
+
+const assignPortrait = async (uuid) => {
+  await initDB()
+  const used = await Hero.distinct('portrait', { portrait: { $ne: null } })
+  const available = ALL_PORTRAITS.filter((p) => !used.includes(p))
+  if (available.length === 0) return null
+  const portrait = available[Math.floor(Math.random() * available.length)]
+  await Hero.findOneAndUpdate({ uuid }, { portrait }, {})
+  return portrait
+}
+
 // Notification
 const addNotificationToDb = async (_notificationSchema, _uuid) => {
   await initDB()
@@ -99,6 +111,7 @@ export {
   entryExists,
   getAllCharactersFromDb,
   updateCharacterStat,
+  assignPortrait,
   addNotificationToDb,
   markAsRead,
   getAllUnreadNotifications,

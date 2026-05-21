@@ -1,9 +1,10 @@
 'use server'
 
-import { initCharacterToDb } from '../scripts/database.js'
+import { initCharacterToDb, assignPortrait } from '../scripts/database.js'
 
 export async function submitCharacter(heroSchema, uuid) {
   console.log('submitting character to db')
-  // initCharacterToDb(heroSchema, uuid)
   await initCharacterToDb(heroSchema, uuid)
+  const portrait = await assignPortrait(uuid)
+  return portrait
 }
