@@ -11,6 +11,7 @@ import {
   getLevel,
   getXPPct,
   getXPToNext,
+  getClassName,
 } from '../../../stores/game_data.js'
 import { getCharacter } from '../../../server_actions/getCharacter.js'
 import { getUnreadNotifications } from '../../../server_actions/getUnreadNotifications.js'
@@ -141,7 +142,7 @@ function CharacterContent() {
         <div className={styles.heroBody}>
           <div className={styles.heroName}>{fullName}</div>
           <div className={styles.heroMeta}>
-            <span className="gold-badge">{data.classname}</span>
+            <span className="gold-badge">{getClassName(data.classname)}</span>
             <span className={styles.heroSep}>·</span>
             <span className={styles.heroLvl}>Level {level}</span>
             <span className={styles.heroSep}>·</span>
@@ -174,7 +175,7 @@ function CharacterContent() {
               </div>
               <div className={styles.infoRow}>
                 <span className={styles.infoKey}>Class</span>
-                <span className={styles.infoVal}>{data.classname}</span>
+                <span className={styles.infoVal}>{getClassName(data.classname)}</span>
               </div>
               <div className={styles.infoRow}>
                 <span className={styles.infoKey}>Title</span>

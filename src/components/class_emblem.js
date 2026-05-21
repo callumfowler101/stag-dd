@@ -42,7 +42,8 @@ export default function ClassEmblem({ id }) {
           <path d="M150 48 Q156 43 162 48 Q168 53 174 48 Q180 43 186 48" {...s} strokeWidth="0.7" opacity="0.25"/>
         </svg>
       );
-    case 'dungeon_master':
+    case 'dungeon_master': // legacy — existing DB records
+    case 'wizard':
       return (
         <svg viewBox="0 0 200 72" xmlns="http://www.w3.org/2000/svg">
           <path d="M72 56 L72 40 L84 22 L92 36 L100 14 L108 36 L116 22 L128 40 L128 56 Z" {...s} strokeWidth="1.3" opacity="0.68"/>

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import styles from './styles.module.css'
 import ClassEmblem from '../../../components/class_emblem.js'
 import NotifOverlay from '../../../components/notif_overlay.js'
-import { STAT_ORDER, STAT_COLORS, getLevel } from '../../../stores/game_data.js'
+import { STAT_ORDER, STAT_COLORS, getLevel, getClassName } from '../../../stores/game_data.js'
 import { updateStatOnCharacter } from '../../../server_actions/updateStatOnCharacter.js'
 import { sendNotification } from '../../../server_actions/sendNotification.js'
 import { useEffect } from 'react'
@@ -57,7 +57,7 @@ function PlayerRow({ player, onGiveXP }) {
         </div>
         <div className={styles.playerInfo}>
           <div className={styles.playerName}>{fullName}</div>
-          <div className={styles.playerMeta}>{player.classname} · Lv {level}</div>
+          <div className={styles.playerMeta}>{getClassName(player.classname)} · Lv {level}</div>
         </div>
         <span className={styles.playerXpBadge}>{player.experience} XP</span>
         <div className={styles.xpControls}>

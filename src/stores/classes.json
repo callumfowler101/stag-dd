@@ -29,8 +29,8 @@
     "fishing": 0,
     "experience": 0
   },
-  "dungeon_master": {
-    "classname": "dungeon_master",
+  "wizard": {
+    "classname": "wizard",
     "info": "Lorem DMs",
     "luck": 0,
     "wisdom": 0,
